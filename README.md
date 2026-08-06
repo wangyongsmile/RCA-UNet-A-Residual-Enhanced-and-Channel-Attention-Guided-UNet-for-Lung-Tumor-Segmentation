@@ -80,8 +80,6 @@ code/
     └── processed.py
 ```
 
-Before publication, rename the current Chinese top-level folder `代码` to `code`, rename experiment folders using English names without spaces, remove all `__pycache__` directories and `.pyc` files, and ensure that all comments, docstrings, command-line help messages, printed output, figure labels, and file descriptions are in English.
-
 ## Requirements
 
 - Python 3.10 or later
@@ -232,22 +230,6 @@ The threshold for binary segmentation is 0.5.
 
 **Distance-unit note:** the current implementation calculates HD95 and ASD in pixel units unless image spacing is explicitly supplied. Do not report these values as millimetres without spacing-aware calculations.
 
-## Reproducibility checklist
-
-Before creating the archival release:
-
-- [ ] translate every non-English code comment, docstring, message, and path;
-- [ ] remove `__pycache__` and `.pyc` files;
-- [ ] replace hard-coded local absolute paths;
-- [ ] provide exact dependency versions;
-- [ ] provide the exact training-validation split files or case lists;
-- [ ] state the random seed;
-- [ ] ensure preprocessing matches the manuscript;
-- [ ] ensure dropout configurations match the manuscript and network diagram;
-- [ ] ensure the distance-metric units match the manuscript;
-- [ ] include commands for every reported experiment;
-- [ ] create a GitHub release, preferably `v1.0.0`;
-- [ ] archive the release with Zenodo and add its DOI.
 
 ## Citation
 
