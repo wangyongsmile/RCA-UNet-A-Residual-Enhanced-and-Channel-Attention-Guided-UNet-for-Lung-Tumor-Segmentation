@@ -67,7 +67,7 @@ Task06_Lung/
 
 ## Code information
 
-The current public repository contains two experiment branches:
+The repository contains separate LUNA16 and MSD experiment branches:
 
 ```text
 code/
@@ -79,6 +79,29 @@ code/
     ├── parameter_ablation/
     └── processed.py
 ```
+
+
+## Reproducibility and language
+
+All public source-code comments, docstrings, command-line help messages, exceptions, console output, and documentation in this release are written in English for review and reuse. The repository also contains `check_english_code.py`, which scans public text/code files for CJK characters. Run:
+
+```bash
+python check_english_code.py
+```
+
+A successful check prints:
+
+```text
+PASS: no CJK characters were found in public text/code files.
+```
+
+The code uses random seed 42 where specified in the experiment scripts. Dataset files are not redistributed. Reviewers should download the original datasets from the official sources listed above and set the environment variables described below.
+
+### Portable data-path configuration
+
+- `LUNA16_DATA_DIR`: root directory containing the LUNA16 subsets and annotation CSV files.
+- `MSD_TASK06_DIR`: root directory of the original MSD `Task06_Lung` dataset.
+- `MSD_PREPROCESSED_DIR`: directory used to store or load preprocessed MSD arrays.
 
 ## Requirements
 
@@ -119,11 +142,8 @@ pip freeze > requirements-lock.txt
 ### MSD preprocessing
 
 1. Download `Task06_Lung`.
-2. Open `code/MSD/processed.py`.
-3. Set:
-   - `DATA_PATH` to the directory containing `imagesTr` and `labelsTr`;
-   - `SAVE_DIR` to the desired preprocessed-data directory.
-4. Run:
+2. Set the environment variables `MSD_TASK06_DIR` and `MSD_PREPROCESSED_DIR`, or edit the portable defaults in `code/MSD/processed.py`.
+3. Run:
 
 ```bash
 python code/MSD/processed.py
@@ -135,11 +155,9 @@ The script:
 - uses random seed 42;
 - performs a patient-level 8:2 training-validation split;
 - extracts two-dimensional axial slices;
-- resizes slices to 256 × 256 pixels;
+- resizes slices to 256 x 256 pixels;
 - applies CT windowing and normalization;
 - saves image and label arrays as `.npy` files.
-
-**Important consistency check:** the current script removes slices with fewer than 50 tumor pixels from both training and validation subsets and currently uses linear interpolation for label masks. The manuscript and code must be made identical before resubmission.
 
 ### MSD model training
 
@@ -181,7 +199,7 @@ python main.py --model no_channel_attention_rca_unet --data-dir /path/to/LungPre
 ### LUNA16 preprocessing and training
 
 1. Download the LUNA16 CT subsets and annotations.
-2. Edit `BASE_PATH` in the LUNA comparison experiment `config.py`.
+2. Set the environment variable `LUNA16_DATA_DIR`, or edit the portable default in the LUNA comparison experiment `config.py`.
 3. Confirm that the expected CT and annotation paths match the loader implementation.
 4. From the LUNA comparison directory, run:
 
